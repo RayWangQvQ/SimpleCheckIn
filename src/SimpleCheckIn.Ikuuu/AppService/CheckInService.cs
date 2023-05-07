@@ -13,18 +13,18 @@ using SimpleCheckIn.Ikuuu.DomainService;
 namespace SimpleCheckIn.Ikuuu.AppService;
 
 [AutoTask("CheckIn", "签到")]
-public class HelloWorldService : ITransientDependency, IAutoTaskService
+public class CheckInService : ITransientDependency, IAutoTaskService
 {
     private readonly IConfiguration _configuration;
     private readonly TargetAccountManager<MyAccountInfo> _targetAccountManager;
-    private readonly ILogger<HelloWorldService> _logger;
+    private readonly ILogger<CheckInService> _logger;
     private readonly LoginDomainService _loginDomainService;
     private readonly IkuuuOptions _ikuuuOptions;
 
-    public HelloWorldService(
+    public CheckInService(
         IConfiguration configuration,
         TargetAccountManager<MyAccountInfo> targetAccountManager,
-        ILogger<HelloWorldService> logger,
+        ILogger<CheckInService> logger,
         IOptions<List<MyAccountInfo>> accountOptions,
         IOptions<IkuuuOptions> ikuuuOptions,
         LoginDomainService loginDomainService
