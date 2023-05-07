@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # new Env("mjjshare签到")
 # cron 5 0 * * * simplecheckin_mjjshare.sh
-. ../simplecheckin_base.sh
+. simplecheckin_base.sh
 
 cd ./src/SimpleCheckIn.MjjShare
 
