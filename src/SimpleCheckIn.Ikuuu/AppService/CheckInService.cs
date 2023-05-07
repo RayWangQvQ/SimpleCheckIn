@@ -89,11 +89,25 @@ public class CheckInService : ITransientDependency, IAutoTaskService
             await context.AddCookiesAsync(cookies.ToObject<List<Cookie>>());
         }
 
+        // Start tracing before creating / navigating a page.
+        await context.Tracing.StartAsync(new()
+        {
+            Screenshots = true,
+            Snapshots = true,
+            Sources = true
+        });
+
         //新增tab页
         IPage page = await context.NewPageAsync();
 
         //访问并签到
         await CheckInAsync(myAccount, page, cancellationToken);
+
+        // Stop tracing and export it into a zip archive.
+        await context.Tracing.StopAsync(new()
+        {
+            Path = $"traces/trace-{myAccount.NickName}.zip"
+        });
     }
 
     private async Task CheckInAsync(MyAccountInfo account, IPage page, CancellationToken cancellationToken)
