@@ -2,6 +2,6 @@
 {
     public class MyConst
     {
-        public static string EnvPrefix = "SimpleCheckIn.MjjShare_";
+        public static string EnvPrefix = "SimpleCheckIn_MjjShare_";
     }
 }

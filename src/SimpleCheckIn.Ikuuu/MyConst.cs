@@ -8,6 +8,6 @@ namespace SimpleCheckIn.Ikuuu
 {
     public class MyConst
     {
-        public static string EnvPrefix = "SimpleCheckIn.Ikuuu_";
+        public static string EnvPrefix = "SimpleCheckIn_Ikuuu_";
     }
 }
