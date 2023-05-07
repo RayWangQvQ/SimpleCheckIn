@@ -55,7 +55,7 @@ namespace SimpleCheckIn.Ikuuu.DomainService
 
             _logger.LogInformation("点击登录");
             var loginLocator = page.GetByRole(AriaRole.Button, new() { NameRegex = new Regex("登录|Login"), Exact = true });
-            await loginLocator.ClickAsync();
+            await loginLocator.First.ClickAsync();//todo:根据type过滤
 
             //todo:判断是否登录成功
 
