@@ -12,7 +12,7 @@ using SimpleCheckIn.Ikuuu.DomainService;
 
 namespace SimpleCheckIn.Ikuuu.AppService;
 
-[AutoTask("Hello", "测试")]
+[AutoTask("CheckIn", "签到")]
 public class HelloWorldService : ITransientDependency, IAutoTaskService
 {
     private readonly IConfiguration _configuration;

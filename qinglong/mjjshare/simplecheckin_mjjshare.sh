@@ -5,6 +5,6 @@
 
 cd ./src/SimpleCheckIn.MjjShare
 
-export SimpleCheckIn_MjjShare_Run=Hello && \
+export SimpleCheckIn_MjjShare_Run=CheckIn && \
 export SimpleCheckIn_MjjShare_SystemConfig__Platform=qinglong && \
 dotnet run --configuration Release

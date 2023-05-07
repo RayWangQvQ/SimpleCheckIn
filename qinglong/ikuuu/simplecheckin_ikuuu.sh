@@ -5,6 +5,6 @@
 
 cd ./src/SimpleCheckIn.Ikuuu
 
-export SimpleCheckIn_Ikuuu_Run=Hello && \
+export SimpleCheckIn_Ikuuu_Run=CheckIn && \
 export SimpleCheckIn_Ikuuu_IkuuuConfig__Platform=qinglong && \
 dotnet run --configuration Release

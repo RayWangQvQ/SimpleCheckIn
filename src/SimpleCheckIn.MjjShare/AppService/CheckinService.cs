@@ -11,7 +11,7 @@ using SimpleCheckIn.MjjShare.DomainService;
 
 namespace SimpleCheckIn.MjjShare.AppService;
 
-[AutoTask("Checkin", "签到")]
+[AutoTask("CheckIn", "签到")]
 public class CheckinService : IAppService, IAutoTaskService
 {
     private readonly TargetAccountManager<MyAccountInfo> _targetAccountManager;
