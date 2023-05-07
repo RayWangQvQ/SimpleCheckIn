@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # new Env("ikuuu签到")
 # cron 1 0 * * * simplecheckin_ikuuu.sh
-. auto_task_base.sh
+. ../auto_task_base.sh
 
 cd ./src/SimpleCheckIn.Ikuuu
 
