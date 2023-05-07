@@ -120,7 +120,7 @@ public class CheckInService : ITransientDependency, IAutoTaskService
         });
 
         _logger.LogInformation("检测登录状态");
-        var loginLocator = page.GetByRole(AriaRole.Button, new() { NameRegex = new Regex("登录|login"), Exact = true });
+        var loginLocator = page.GetByRole(AriaRole.Button, new() { NameRegex = new Regex("登录|Login"), Exact = true });
         if (await loginLocator.CountAsync() > 0)
         {
             _logger.LogInformation("检测到未登录，开始登录");
