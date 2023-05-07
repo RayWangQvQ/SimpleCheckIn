@@ -99,8 +99,12 @@ public class CheckInService : ITransientDependency, IAutoTaskService
     private async Task CheckInAsync(MyAccountInfo account, IPage page, CancellationToken cancellationToken)
     {
         _logger.LogInformation("访问{url}", _ikuuuOptions.EntranceUrl);
-        await page.GotoAsync(_ikuuuOptions.EntranceUrl);
+        await page.GotoAsync(_ikuuuOptions.EntranceUrl, new PageGotoOptions()
+        {
+            Timeout = 60 * 1000
+        });
 
+        _logger.LogInformation("检测登录状态");
         var loginLocator = page.GetByRole(AriaRole.Button, new() { Name = "登录", Exact = true });
         if (await loginLocator.CountAsync() > 0)
         {
@@ -117,6 +121,7 @@ public class CheckInService : ITransientDependency, IAutoTaskService
             await readLocator.ClickAsync();
         }
 
+        _logger.LogInformation("检测签到状态");
         var checkInLocator = page.GetByRole(AriaRole.Link, new() { Name = "每日签到" });
         if (await checkInLocator.CountAsync() > 0)
         {

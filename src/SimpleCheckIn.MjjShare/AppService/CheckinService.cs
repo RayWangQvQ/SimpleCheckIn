@@ -94,7 +94,10 @@ public class CheckinService : IAppService, IAutoTaskService
     private async Task CheckInAsync(MyAccountInfo account, IPage page, CancellationToken cancellationToken)
     {
         _logger.LogInformation("访问{url}", _systemOptions.EntranceUrl);
-        await page.GotoAsync(_systemOptions.EntranceUrl);
+        await page.GotoAsync(_systemOptions.EntranceUrl, new PageGotoOptions()
+        {
+            Timeout = 60 * 1000
+        });
 
         var loginLocator = page.GetByRole(AriaRole.Button, new() { Name = "登录！" });
         if (await loginLocator.CountAsync() > 0)
