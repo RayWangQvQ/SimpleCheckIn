@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SimpleCheckIn.MjjShare": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
