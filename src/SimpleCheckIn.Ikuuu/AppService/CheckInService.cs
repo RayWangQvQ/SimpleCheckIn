@@ -57,9 +57,9 @@ public class CheckInService : ITransientDependency, IAutoTaskService
 
             if (_targetAccountManager.HasNext())
             {
-                var sec = 30;
+                var sec = 10;
                 _logger.LogInformation("睡个{sec}秒", sec);
-                await Task.Delay(30 * 1000, cancellationToken);
+                await Task.Delay(sec * 1000, cancellationToken);
                 _targetAccountManager.MoveToNext();
             }
         }
