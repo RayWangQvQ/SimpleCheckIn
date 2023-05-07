@@ -102,13 +102,19 @@ public class CheckInService : ITransientDependency, IAutoTaskService
         IPage page = await context.NewPageAsync();
 
         //访问并签到
-        await CheckInAsync(myAccount, page, cancellationToken);
-
-        // Stop tracing and export it into a zip archive.
-        await context.Tracing.StopAsync(new()
+        try
         {
-            Path = $"traces/trace-{myAccount.NickName}.zip"
-        });
+            await CheckInAsync(myAccount, page, cancellationToken);
+        }
+        finally
+        {
+            // Stop tracing and export it into a zip archive.
+            await context.Tracing.StopAsync(new()
+            {
+                Path = $"traces/trace-{myAccount.NickName}.zip"
+            });
+        }
+
     }
 
     private async Task CheckInAsync(MyAccountInfo account, IPage page, CancellationToken cancellationToken)

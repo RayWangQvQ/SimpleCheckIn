@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Playwright;
 using Ray.Infrastructure.AutoTask;
@@ -40,19 +41,19 @@ namespace SimpleCheckIn.Ikuuu.DomainService
         public async Task LoginAsync(MyAccountInfo myAccount, IPage page, CancellationToken cancellationToken)
         {
             _logger.LogInformation("填入邮箱：{email}",myAccount.UserName);
-            var emailLocator = page.GetByLabel("邮箱");
+            var emailLocator = page.Locator("#email");
             await emailLocator.ClickAsync();
             await emailLocator.FillAsync(myAccount.UserName);
 
             _logger.LogInformation("填入密码：{pwd}", new string('*',myAccount.Pwd.Length));
-            var pwdLocator = page.GetByLabel("密码");
+            var pwdLocator = page.Locator("#password");
             await pwdLocator.ClickAsync();
             await pwdLocator.FillAsync(myAccount.Pwd);
 
-            await page.GetByText("记住我").ClickAsync();
+            await page.Locator("#remember-me").ClickAsync();
 
             _logger.LogInformation("点击登录");
-            var loginLocator = page.GetByRole(AriaRole.Button, new() { Name = "登录", Exact = true });
+            var loginLocator = page.GetByRole(AriaRole.Button, new() { NameRegex = new Regex("登录|Login"), Exact = true });
             await loginLocator.ClickAsync();
 
             //todo:判断是否登录成功
