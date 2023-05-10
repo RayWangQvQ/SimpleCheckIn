@@ -38,7 +38,7 @@ namespace SimpleCheckIn.Ikuuu.DomainService
             _ikuuuOptions = ikuuuOptions.Value;
         }
 
-        public async Task LoginAsync(MyAccountInfo myAccount, IPage page, CancellationToken cancellationToken)
+        public async Task LoginAsync(MyAccountInfo myAccount, IBrowserContext context, IPage page, CancellationToken cancellationToken)
         {
             _logger.LogInformation("填入邮箱：{email}",myAccount.UserName);
             var emailLocator = page.Locator("#email");
@@ -60,13 +60,13 @@ namespace SimpleCheckIn.Ikuuu.DomainService
             //todo:判断是否登录成功
 
             _logger.LogInformation("持久化账号状态");
-            await SaveStatesAsync(myAccount, page, cancellationToken);
+            await SaveStatesAsync(myAccount, context, cancellationToken);
             _logger.LogInformation("持久化成功");
         }
 
-        private async Task SaveStatesAsync(MyAccountInfo myAccount, IPage page, CancellationToken cancellationToken)
+        private async Task SaveStatesAsync(MyAccountInfo myAccount, IBrowserContext context, CancellationToken cancellationToken)
         {
-            myAccount.States = await page.Context.StorageStateAsync();
+            myAccount.States = await context.StorageStateAsync();
 
             if (_ikuuuOptions.Platform.ToLower() == "qinglong")
             {

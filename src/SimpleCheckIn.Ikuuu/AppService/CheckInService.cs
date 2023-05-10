@@ -80,7 +80,7 @@ public class CheckInService : ITransientDependency, IAutoTaskService
             Headless = true,
 #endif
         });
-        var context = await browser.NewContextAsync();
+        IBrowserContext context = await browser.NewContextAsync();
 
         //加载状态
         _logger.LogInformation("加载历史状态");
@@ -104,7 +104,7 @@ public class CheckInService : ITransientDependency, IAutoTaskService
         //访问并签到
         try
         {
-            await CheckInAsync(myAccount, page, cancellationToken);
+            await CheckInAsync(myAccount, context, page, cancellationToken);
         }
         finally
         {
@@ -117,7 +117,7 @@ public class CheckInService : ITransientDependency, IAutoTaskService
         }
     }
 
-    private async Task CheckInAsync(MyAccountInfo account, IPage page, CancellationToken cancellationToken)
+    private async Task CheckInAsync(MyAccountInfo account, IBrowserContext context, IPage page, CancellationToken cancellationToken)
     {
         _logger.LogInformation("访问{url}", _ikuuuOptions.EntranceUrl);
         await page.GotoAsync(_ikuuuOptions.EntranceUrl, new PageGotoOptions()
@@ -130,7 +130,7 @@ public class CheckInService : ITransientDependency, IAutoTaskService
         if (await loginLocator.CountAsync() > 0)
         {
             _logger.LogInformation("检测到未登录，开始登录");
-            await _loginDomainService.LoginAsync(account, page, cancellationToken);
+            await _loginDomainService.LoginAsync(account, context, page, cancellationToken);
 
             //发现登陆后重定向可能有问题，等待下
             _logger.LogInformation("等待重定向");
