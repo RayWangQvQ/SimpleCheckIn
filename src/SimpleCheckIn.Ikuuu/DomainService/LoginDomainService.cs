@@ -58,8 +58,8 @@ namespace SimpleCheckIn.Ikuuu.DomainService
             await loginLocator.First.ClickAsync();//todo:根据type过滤
 
             //todo:判断是否登录成功
-            _logger.LogInformation("等待重定向");
-            await Task.Delay(3 * 60 * 1000, cancellationToken);
+            //_logger.LogInformation("等待重定向");
+            //await Task.Delay(3 * 60 * 1000, cancellationToken);
 
             _logger.LogInformation("持久化账号状态");
             await SaveStatesAsync(myAccount, context, cancellationToken);
@@ -69,6 +69,7 @@ namespace SimpleCheckIn.Ikuuu.DomainService
         private async Task SaveStatesAsync(MyAccountInfo myAccount, IBrowserContext context, CancellationToken cancellationToken)
         {
             myAccount.States = await context.StorageStateAsync();
+            _logger.LogDebug("States: {states}", myAccount.States);
 
             if (_ikuuuOptions.Platform.ToLower() == "qinglong")
             {
