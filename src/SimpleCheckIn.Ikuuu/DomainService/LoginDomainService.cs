@@ -66,7 +66,7 @@ namespace SimpleCheckIn.Ikuuu.DomainService
             _logger.LogInformation("持久化成功");
         }
 
-        private async Task SaveStatesAsync(MyAccountInfo myAccount, IBrowserContext context, CancellationToken cancellationToken)
+        public async Task SaveStatesAsync(MyAccountInfo myAccount, IBrowserContext context, CancellationToken cancellationToken)
         {
             myAccount.States = await context.StorageStateAsync();
             _logger.LogDebug("States: {states}", myAccount.States);

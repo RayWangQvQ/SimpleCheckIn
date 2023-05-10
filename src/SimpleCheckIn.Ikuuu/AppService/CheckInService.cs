@@ -161,6 +161,8 @@ public class CheckInService : ITransientDependency, IAutoTaskService
             }
 
             //await page.GetByRole(AriaRole.Button, new() { Name = "OK" }).ClickAsync();
+
+            await _loginDomainService.SaveStatesAsync(account, context, cancellationToken);
         }
         else if (await page.GetByRole(AriaRole.Link, new() { Name = "明日再来" }).CountAsync() > 0)
         {
