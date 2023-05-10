@@ -109,12 +109,12 @@ public class CheckInService : ITransientDependency, IAutoTaskService
         finally
         {
             // Stop tracing and export it into a zip archive.
+            _logger.LogInformation("保存trace");
             await context.Tracing.StopAsync(new()
             {
                 Path = $"traces/trace-{myAccount.NickName}.zip"
             });
         }
-
     }
 
     private async Task CheckInAsync(MyAccountInfo account, IPage page, CancellationToken cancellationToken)
@@ -131,6 +131,10 @@ public class CheckInService : ITransientDependency, IAutoTaskService
         {
             _logger.LogInformation("检测到未登录，开始登录");
             await _loginDomainService.LoginAsync(account, page, cancellationToken);
+
+            //发现登陆后重定向可能有问题，等待下
+            _logger.LogInformation("等待重定向");
+            await Task.Delay(60 * 3 * 1000, cancellationToken);
         }
 
         _logger.LogInformation("检测到已登录");

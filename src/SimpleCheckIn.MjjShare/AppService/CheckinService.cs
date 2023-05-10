@@ -88,7 +88,19 @@ public class CheckinService : IAppService, IAutoTaskService
         IPage page = await context.NewPageAsync();
 
         //访问并签到
-        await CheckInAsync(myAccount, page, cancellationToken);
+        try
+        {
+            await CheckInAsync(myAccount, page, cancellationToken);
+        }
+        finally
+        {
+            // Stop tracing and export it into a zip archive.
+            _logger.LogInformation("保存trace");
+            await context.Tracing.StopAsync(new()
+            {
+                Path = $"traces/trace-{myAccount.NickName}.zip"
+            });
+        }
     }
 
     private async Task CheckInAsync(MyAccountInfo account, IPage page, CancellationToken cancellationToken)
@@ -103,6 +115,10 @@ public class CheckinService : IAppService, IAutoTaskService
         if (await loginLocator.CountAsync() > 0)
         {
             await _loginDomainService.LoginAsync(account, page, cancellationToken);
+
+            //发现登陆后重定向可能有问题，等待下
+            _logger.LogInformation("等待重定向");
+            await Task.Delay(60 * 3 * 1000, cancellationToken);
         }
         else
         {
