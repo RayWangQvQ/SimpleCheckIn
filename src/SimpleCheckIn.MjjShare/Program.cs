@@ -100,11 +100,14 @@ public class Program
             .MinimumLevel.Information()
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
             .Enrich.FromLogContext()
-            .WriteTo.Async(c =>
-            {
-                c.File($"Logs/{DateTime.Now.ToString("yyyy-MM-dd")}/{DateTime.Now.ToString("HH-mm-ss")}.txt",
-                    restrictedToMinimumLevel: LogEventLevel.Debug);
-            })
+            .WriteTo.File($"Logs/{DateTime.Now:yyyy-MM-dd}/{DateTime.Now:HH-mm-ss}.txt",
+                restrictedToMinimumLevel: LogEventLevel.Debug
+            )
+            //.WriteTo.Async(c =>
+            //{
+            //    c.File($"Logs/{DateTime.Now:yyyy-MM-dd}/{DateTime.Now:HH-mm-ss}.txt",
+            //        restrictedToMinimumLevel: LogEventLevel.Debug);
+            //})
             .WriteTo.Console()
             .WriteTo.PushPlusBatched(
                 config["Notify:PushPlus:Token"],
