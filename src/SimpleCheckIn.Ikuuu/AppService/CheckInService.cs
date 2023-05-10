@@ -122,7 +122,7 @@ public class CheckInService : ITransientDependency, IAutoTaskService
         _logger.LogInformation("访问{url}", _ikuuuOptions.EntranceUrl);
         await page.GotoAsync(_ikuuuOptions.EntranceUrl, new PageGotoOptions()
         {
-            Timeout = 60 * 1000
+            Timeout = 60 * 3 * 1000
         });
 
         _logger.LogInformation("检测登录状态");

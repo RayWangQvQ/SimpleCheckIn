@@ -96,7 +96,7 @@ public class CheckinService : IAppService, IAutoTaskService
         _logger.LogInformation("访问{url}", _systemOptions.EntranceUrl);
         await page.GotoAsync(_systemOptions.EntranceUrl, new PageGotoOptions()
         {
-            Timeout = 60 * 1000
+            Timeout = 60 * 3 * 1000
         });
 
         var loginLocator = page.GetByRole(AriaRole.Button, new() { Name = "登录！" });
