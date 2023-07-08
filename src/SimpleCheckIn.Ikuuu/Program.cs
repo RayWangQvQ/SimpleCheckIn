@@ -163,7 +163,7 @@ public class Program
             .AddRefitClient<IIkuuuApi>()
             .ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri("https://ikuuu.eu");
+                c.BaseAddress = new Uri(config["IkuuuConfig:EntranceUrl"]?? "https://ikuuu.art");
 
                 var ua = config["UserAgent"];
                 if (!string.IsNullOrWhiteSpace(ua))
